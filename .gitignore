@@ -2,7 +2,7 @@
 __pycache__/
 *.pyc
 
-# Pasta do Ambiente Virtual (se você usa 'venv', 'env' ou '.venv')
+# Pasta do Ambiente Virtual
 venv/
 env/
 .venv/
