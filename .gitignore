@@ -1,0 +1,19 @@
+# Arquivos do Python
+__pycache__/
+*.pyc
+
+# Pasta do Ambiente Virtual (se você usa 'venv', 'env' ou '.venv')
+venv/
+env/
+.venv/
+
+# Banco de dados local
+*.sqlite3
+db.sqlite3
+
+# Arquivos de ambiente (NUNCA envie isso)
+.env
+
+# Arquivos de IDE
+.vscode/
+.idea/
