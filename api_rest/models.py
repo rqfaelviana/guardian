@@ -1,66 +1,62 @@
+from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.utils.translation import gettext_lazy as _
-
-# class UsuarioManager(BaseUserManager):  
-#     '''
-#     Esta classe é o "Manual De Instruções" para criar usuários 
-#     do modelo Usuario.
-#     '''
-#     def create_user(self, email, password=None, **extra_fields):
-#         if not email:
-#             raise ValueError('O email deve ser fornecido')
-#         email = self.normalize_email(email) #Padroniza o email
-
-#         user = self.model(email=email, **extra_fields) #Cria o objeto usuário
-#         user.set_password(password) #Pega a senha e cria o hash
-#         user.save(using=self._db) #Salva o usuário no banco de dados
-
-#         return user
-    
-    # def create_superuser(self, email, password=None, **extra_fields):
-    #     '''
-    #     Cria e salva um Superusuário (admin) para o comando
-    #     'createsuperuser' do Django.
-    #     '''
-    #     #Não vai usar no postman.
-    #     extra_fields.setdefault('is_staff', True)
-    #     extra_fields.setdefault('is_superuser', True)
-    #     extra_fields.setdefault('is_active', True)
-
-    #     if extra_fields.get('is_staff') is not True:
-    #         raise ValueError('Superusuário deve ter is_staff=True.')
-    #     if extra_fields.get('is_superuser') is not True:
-    #         raise ValueError('Superusuário deve ter is_superuser=True.')    
-
-    #     return self.create_user(email, password, **extra_fields)
+from django.contrib.auth.models import AbstractUser
 
 
-# --- Molde para criar usuários ---
+class UserManager(BaseUserManager):
 
-class Usuario(AbstractUser):
-    username = models.CharField(
-        max_length=150, 
-        unique=False,
-        blank=True,
-        null=True,
-    ) #Remove o campo username
-    email = models.EmailField(_('endereço de e-mail'), unique=True, null=False)
-    data_cadastro = models.DateTimeField(auto_now_add=True)
+    def create_user(self, email: str, first_name: str, last_name: str, password: str = None, is_staff=None,
+                    is_superuser=None, **extra_fields):
+
+        if not email:
+            raise ValueError('O campo Email é obrigatório')
+        if not first_name:
+            raise ValueError("O campo Primeiro Nome é obrigatório")
+        if not last_name:
+            raise ValueError("O campo Último Nome é obrigatório")
+        email = self.normalize_email(email)
+
+        user = self.model(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            **extra_fields
+        )
+
+        user.set_password(password)
+        user.is_active = True
+        user.is_staff = is_staff 
+        user.is_superuser = is_superuser 
+        user.save(using=self._db)
+        return user
 
 
-    USERNAME_FIELD = 'email' #Utiliza o email como campo de login
-    
-    REQUIRED_FIELDS = []
+    def create_superuser(self, email: str, first_name: str, last_name: str, password: str = None,):
+        user = self.create_user(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password,
+            is_staff=True,
+            is_superuser=True,
+        )
+        user.is_staff = True
 
-    # objects = UsuarioManager()
+class Cliente(AbstractUser):
+
+    username = None
+
+
+    first_name = models.CharField(verbose_name='primeiro nome', max_length=150, blank=False)
+    last_name = models.CharField(verbose_name='último nome', max_length=150, blank=False)
+
+    email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
+
+    USERNAME_FIELD = 'email'
+
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    objects = UserManager()
 
     def __str__(self):
         return self.email
-    
-class Empresa(models.Model):
-    nome_empresa = models.CharField(max_length=100)
-    cnpj = models.CharField(max_length=18, unique=True)
-
-    def __str__(self):
-        return self.nome_empresa
