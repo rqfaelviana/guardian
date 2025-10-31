@@ -5,8 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email: str, first_name: str, last_name: str, password: str = None, is_staff=None,
-                    is_superuser=None, **extra_fields):
+    def create_user(self, email: str, first_name: str, last_name: str, password: str = None, is_staff=False,
+                    is_superuser=False, **extra_fields):
 
         if not email:
             raise ValueError('O campo Email é obrigatório')
@@ -41,6 +41,8 @@ class UserManager(BaseUserManager):
             is_superuser=True,
         )
         user.is_staff = True
+
+        return user
 
 class Cliente(AbstractUser):
 
