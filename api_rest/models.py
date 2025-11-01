@@ -44,7 +44,7 @@ class UserManager(BaseUserManager):
 
         return user
 
-class Cliente(AbstractUser):
+class Usuario(AbstractUser):
 
     username = None
 
@@ -60,5 +60,31 @@ class Cliente(AbstractUser):
 
     objects = UserManager()
 
+    empresa = models.ForeignKey(
+        'Empresa', #linka a classe q ta ali embaixo
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return self.email
+    
+class Empresa(models.Model):
+    nome_fantasia = models.CharField(max_length=100)
+    razao_social = models.CharField(max_length=100)
+
+    cnpj = models.CharField(max_length=14, unique=True)
+
+    def __str__(self):
+        return self.nome_fantasia
+    
+#cliente da empresa
+class Cliente(models.Model):
+    nome = models.CharField(max_length=100)
+
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nome
+    
