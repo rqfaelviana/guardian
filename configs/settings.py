@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 # A secret key pode ser lida no arquivo .env
 SECRET_KEY = config('SECRET_KEY')
 
@@ -40,10 +39,10 @@ INSTALLED_APPS = [
 
     # Apps de terceiros
     'rest_framework',
-    'rest_framework_simplejwt',    # <-- ADICIONADO
-    'dj_rest_auth',                # <-- ADICIONADO
-    'dj_rest_auth.registration',   # <-- ADICIONADO
-    'corsheaders',                 # <-- ADICIONADO (necessário para CORS)
+    'rest_framework_simplejwt',    
+    'dj_rest_auth',                
+    'dj_rest_auth.registration',   
+    'corsheaders',                 
 
     'allauth',
     'allauth.account',
@@ -57,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     
-    'corsheaders.middleware.CorsMiddleware', # <-- ADICIONADO (coloque antes do CommonMiddleware)
+    'corsheaders.middleware.CorsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     
     'django.middleware.common.CommonMiddleware',
@@ -157,14 +156,12 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'guardian-refresh-token',
     
     # Define que o registro usará um Serializer customizado
-    # (Ainda vamos criar este arquivo 'api_rest/serializers.py')
     'REGISTER_SERIALIZER': 'api_rest.serializers.CustomRegisterSerializer',
     
     # Pede o email no login (o padrão é username)
     'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.LoginSerializer',
 
-    # Diz ao dj-rest-auth para NÃO usar/procurar o modelo de 
-    # token antigo ('authtoken')
+    # Diz ao dj-rest-auth para NÃO usar/procurar o modelo de tokn antigo
     'TOKEN_MODEL': None,
 }
 
@@ -190,5 +187,6 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
 
 SITE_ID = 1
