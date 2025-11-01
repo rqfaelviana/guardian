@@ -15,8 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # 2. URLs de Autenticação (Login, Logout, etc.)
+    #    Isso cria: /api/auth/login/, /api/auth/logout/, etc.
+    path('api/auth/', include('dj_rest_auth.urls')), 
+    
+    # 3. URLs de Registro
+    #    Isso cria: /api/auth/registration/
+    #    Este endpoint usará automaticamente o seu 'CustomRegisterSerializer'
+    #    porque o configuramos no settings.py
+    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
 ]
