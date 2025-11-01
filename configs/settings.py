@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#A secret key pode ser lida no arquivo .env
+# A secret key pode ser lida no arquivo .env
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -37,13 +37,29 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Apps de terceiros
     'rest_framework',
+    'rest_framework_simplejwt',    # <-- ADICIONADO
+    'dj_rest_auth',                # <-- ADICIONADO
+    'dj_rest_auth.registration',   # <-- ADICIONADO
+    'corsheaders',                 # <-- ADICIONADO (necessário para CORS)
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # Minhas Apps
     'api_rest',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    'corsheaders.middleware.CorsMiddleware', # <-- ADICIONADO (coloque antes do CommonMiddleware)
+    'allauth.account.middleware.AccountMiddleware',
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,7 +139,56 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# --- Configurações que você já tinha ---
 AUTH_USER_MODEL = 'api_rest.Usuario'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+
+# --- ADICIONADO: Configurações do REST Framework e dj-rest-auth ---
+
+# Define como o dj-rest-auth deve se comportar
+REST_AUTH = {
+    'USE_JWT': True, # Diz ao dj-rest-auth para usar JWT
+    
+    # Define os nomes dos cookies que guardarão os tokens
+    # (O frontend não precisará guardar o token manualmente)
+    'JWT_AUTH_COOKIE': 'guardian-auth-token',
+    'JWT_AUTH_REFRESH_COOKIE': 'guardian-refresh-token',
+    
+    # Define que o registro usará um Serializer customizado
+    # (Ainda vamos criar este arquivo 'api_rest/serializers.py')
+    'REGISTER_SERIALIZER': 'api_rest.serializers.CustomRegisterSerializer',
+    
+    # Pede o email no login (o padrão é username)
+    'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.LoginSerializer',
+
+    # Diz ao dj-rest-auth para NÃO usar/procurar o modelo de 
+    # token antigo ('authtoken')
+    'TOKEN_MODEL': None,
+}
+
+# Define as regras globais da API REST
+REST_FRAMEWORK = {
+    # Define a autenticação padrão para a API
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # Define a permissão padrão (ninguém acessa nada se não estiver logado)
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+# Configura o email (necessário para o dj-rest-auth)
+# Para testes, vamos apenas simular o envio de email jogando no console.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Configura o dj-rest-auth para que o usuário se registre apenas com email
+# (Não vai pedir "username")
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+SITE_ID = 1
