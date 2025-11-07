@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     # Minhas Apps
-    'api_rest',
+    'usuarios',
+    'clientes',
+    'empresas'
 ]
 
 MIDDLEWARE = [
@@ -139,7 +141,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # --- Configurações que você já tinha ---
-AUTH_USER_MODEL = 'api_rest.Usuario'
+AUTH_USER_MODEL = 'usuarios.Usuario'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
@@ -156,7 +158,7 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'guardian-refresh-token',
     
     # Define que o registro usará um Serializer customizado
-    'REGISTER_SERIALIZER': 'api_rest.serializers.CustomRegisterSerializer',
+    'REGISTER_SERIALIZER': 'usuarios.serializers.CustomRegisterSerializer',
     
     # Pede o email no login (o padrão é username)
     'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.LoginSerializer',
