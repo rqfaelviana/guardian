@@ -4,6 +4,14 @@ from models.empresa import Empresa
 from models.usuario import Usuario
 import uuid
 
+#função pra verificar se o email ja existe
+def email_existe(email, banco):
+    for empresa in banco.get("empresas", []):
+        for usuario in empresa.get("usuarios", []):
+            if usuario["email"] == email:
+                return True
+    return False
+
 #Menu de Login
 def fluxo_login():
     print("Bem-vindo ao Guardian")
@@ -16,16 +24,20 @@ def fluxo_login():
 
 
 def cadastrar_usuario():
+    print("\n====================================")
+    print("        CADASTRO DE EMPRESA")
+    print("====================================\n")
     nome_fantasia = input("Nome Fantasia: ").strip().title()
     razao_social = input("Razão Social: ").strip().title()  
 
+    #validação do cnpj
     while True:          
         cnpj = input("CNPJ da Empresa: ").strip()
 
         if len(cnpj) == 14 and cnpj.isdigit():
             break
         else:
-            print("❌ CNPJ inválido! Digite exatamente 14 dígitos numéricos.")
+            print("\n[Erro] CNPJ inválido. Digite exatamente 14 números.\n")
     
 
     empresa_id = str(uuid.uuid4())
@@ -37,15 +49,23 @@ def cadastrar_usuario():
         cnpj=cnpj
     )
 
+    #validação do email
     while True:
         email = input("Email da empresa: ").strip().lower()
 
-        if "@" in email and "." in email:
-            break
-        else:
-            print("Email inválido. Tente novamente.")
+        if "@" not in email and "." not in email:
+            print("[Erro] Email inválido. Tente novamente.")
+            continue
 
-    senha = input("Senha: ")
+        banco = load_data()
+
+        if email_existe(email, banco):
+            print("[Erro] Email já cadastrado. Utilize outro.")
+            continue
+        
+        break
+
+    senha = input("\nSenha: ")
 
     usuarioLocal = Usuario(
         id=str(uuid.uuid4()),
@@ -63,24 +83,36 @@ def cadastrar_usuario():
 
     banco["empresas"].append(empresaLocal.to_dict())
     save_data(banco)
-
+    print("\n------------------------------------")
     print(f'Empresa cadastrada!\nID Cadastrado: {empresa_id}')
+    print("------------------------------------\n")
 
     
 #Fluxo de login
 def login_usuario():
-    print("Login do Usuário")
-    login_email = input("Email: ")
+    print("\n====================================")
+    print("              LOGIN")
+    print("====================================\n")
+
+    login_email = input("Email: ").strip().lower()
     login_senha = input("Senha: ")
 
     banco = load_data()
+
+    #verifica se tem empressas cadastradas
+    if "empresas" not in banco or len(banco["empresas"]) == 0:
+        print("\n[Erro] Nenhuma empresa cadastrada no sistema.\n")
+        return False
+    
     for empresa in banco["empresas"]:
         for usuario in empresa["usuarios"]:
             if usuario["email"] == login_email and usuario["senha"] == login_senha:
-                print(f'Login feito com sucesso! Bem-vindo(a), empresa: {empresa["nome_fantasia"]}')
+                print("\n------------------------------------")
+                print(f'Login realizado com êxito! Bem-vindo(a), empresa: {empresa["nome_fantasia"]}')
+                print("\n------------------------------------")
                 return True
 
-    print("Email ou senha incorretos...")    
+    print("\n[Erro] Email ou senha incorretos.\n")  
     return False
 
          
