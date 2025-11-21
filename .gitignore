@@ -1,19 +1,9 @@
-# Arquivos do Python
-__pycache__/
-*.pyc
-
-# Pasta do Ambiente Virtual
 venv/
-env/
-.venv/
-.env
-# Banco de dados local
-*.sqlite3
-db.sqlite3
+*.pyc
+__pycache__/
 
-# Arquivos de ambiente (NUNCA envie isso)
-.env
+#banco de dados
+database.json 
 
-# Arquivos de IDE
+#lixo do vscode
 .vscode/
-.idea/
