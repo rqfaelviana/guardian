@@ -16,9 +16,17 @@ def fluxo_login():
 
 
 def cadastrar_usuario():
-    nome_fantasia = input("Nome Fantasia: ")
-    razao_social = input("Razão Social: ")            
-    cnpj = input("CNPJ da Empresa: ")
+    nome_fantasia = input("Nome Fantasia: ").strip().title()
+    razao_social = input("Razão Social: ").strip().title()  
+
+    while True:          
+        cnpj = input("CNPJ da Empresa: ").strip()
+
+        if len(cnpj) == 14 and cnpj.isdigit():
+            break
+        else:
+            print("❌ CNPJ inválido! Digite exatamente 14 dígitos numéricos.")
+    
 
     empresa_id = str(uuid.uuid4())
 
@@ -29,7 +37,14 @@ def cadastrar_usuario():
         cnpj=cnpj
     )
 
-    email = input("Email da empresa: ")
+    while True:
+        email = input("Email da empresa: ").strip().lower()
+
+        if "@" in email and "." in email:
+            break
+        else:
+            print("Email inválido. Tente novamente.")
+
     senha = input("Senha: ")
 
     usuarioLocal = Usuario(
