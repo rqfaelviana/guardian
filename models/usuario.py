@@ -1,7 +1,13 @@
 class Usuario:
-    def __init__(self, id, nome, email, senha_hash, empresa_id=None):
+    def __init__(self, id, email, senha, empresa_id=None):
         self.id = id
-        self.nome = nome
         self.email = email
-        self.senha_hash = senha_hash
+        self.senha = senha
         self.empresa_id = empresa_id
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "senha": self.senha
+        }
