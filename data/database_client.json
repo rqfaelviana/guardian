@@ -1,0 +1,124 @@
+{
+    "clientes": [
+        {
+            "nome_completo": "Ana Clara Souza (Williams)",
+            "cpf": "123.456.789-00",
+            "rg": "12.345.678-9",
+            "data_nascimento": "15/04/1990",
+            "genero": "Feminino",
+            "nacionalidade": "Brasileira",
+            "estado_civil": "Solteira",
+            "email": "ana.souza@email.com",
+            "telefone": "(11) 99999-1234",
+            "empresa_id": "0a77acd4-6bee-4b2e-b6a0-aca4efd29183",
+            "endereco": {
+                "logradouro": "Rua das Flores",
+                "numero": "101",
+                "bairro": "Jardim Primavera",
+                "cidade": "São Paulo",
+                "estado": "SP",
+                "cep": "01234-567"
+            }
+        },
+        {
+            "nome_completo": "Carlos Eduardo Silva (Williams)",
+            "cpf": "987.654.321-11",
+            "rg": "98.765.432-1",
+            "data_nascimento": "22/11/1985",
+            "genero": "Masculino",
+            "nacionalidade": "Brasileiro",
+            "estado_civil": "Casado",
+            "email": "carlos.silva@email.com",
+            "telefone": "(21) 98888-5678",
+            "empresa_id": "0a77acd4-6bee-4b2e-b6a0-aca4efd29183",
+            "endereco": {
+                "logradouro": "Avenida Brasil",
+                "numero": "500",
+                "bairro": "Centro",
+                "cidade": "Rio de Janeiro",
+                "estado": "RJ",
+                "cep": "20000-000"
+            }
+        },
+        {
+            "nome_completo": "Mariana Oliveira (Williams)",
+            "cpf": "456.789.123-22",
+            "rg": "45.678.912-3",
+            "data_nascimento": "05/02/1998",
+            "genero": "Feminino",
+            "nacionalidade": "Brasileira",
+            "estado_civil": "Solteira",
+            "email": "mari.oliveira@email.com",
+            "telefone": "(31) 97777-9999",
+            "empresa_id": "0a77acd4-6bee-4b2e-b6a0-aca4efd29183",
+            "endereco": {
+                "logradouro": "Praça da Liberdade",
+                "numero": "20",
+                "bairro": "Savassi",
+                "cidade": "Belo Horizonte",
+                "estado": "MG",
+                "cep": "30140-000"
+            }
+        },
+        {
+            "nome_completo": "Roberto Santos (Cesar)",
+            "cpf": "444.444.444-44",
+            "rg": "22.222.222-2",
+            "data_nascimento": "10/10/1990",
+            "genero": "Masculino",
+            "nacionalidade": "Brasileiro",
+            "estado_civil": "Casado",
+            "email": "roberto@novatech.com",
+            "telefone": "(41) 99999-1111",
+            "empresa_id": "334ce9e1-fdc8-4793-b7c0-4daaef1085b4",
+            "endereco": {
+                "logradouro": "Rua das Araucárias",
+                "numero": "300",
+                "bairro": "Batel",
+                "cidade": "Curitiba",
+                "estado": "PR",
+                "cep": "80000-000"
+            }
+        },
+        {
+            "nome_completo": "Julia Pereira (Cesar)",
+            "cpf": "555.555.555-55",
+            "rg": "33.333.333-3",
+            "data_nascimento": "25/12/1995",
+            "genero": "Feminino",
+            "nacionalidade": "Brasileira",
+            "estado_civil": "Solteira",
+            "email": "julia@novatech.com",
+            "telefone": "(51) 98888-2222",
+            "empresa_id": "334ce9e1-fdc8-4793-b7c0-4daaef1085b4",
+            "endereco": {
+                "logradouro": "Av. Ipiranga",
+                "numero": "1500",
+                "bairro": "Partenon",
+                "cidade": "Porto Alegre",
+                "estado": "RS",
+                "cep": "90000-000"
+            }
+        },
+        {
+            "nome_completo": "Fernanda Costa (Cesar)",
+            "cpf": "666.666.666-66",
+            "rg": "44.444.444-4",
+            "data_nascimento": "01/01/2000",
+            "genero": "Feminino",
+            "nacionalidade": "Brasileira",
+            "estado_civil": "Divorciada",
+            "email": "fernanda@novatech.com",
+            "telefone": "(71) 97777-3333",
+            "empresa_id": "334ce9e1-fdc8-4793-b7c0-4daaef1085b4",
+            "endereco": {
+                "logradouro": "Rua da Paciência",
+                "numero": "100",
+                "bairro": "Rio Vermelho",
+                "cidade": "Salvador",
+                "estado": "BA",
+                "cep": "40000-000"
+            }
+        }
+    ]
+}
