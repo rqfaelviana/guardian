@@ -137,6 +137,48 @@ def listar_clientes(empresa):
             print(f"Email: {cliente['email']}")
             print("\n")
             
+# Cadastro de Clientes
+def cadastrar_cliente(empresa):
+    print("\n===== CADASTRAR NOVO CLIENTE =====")
+
+    cliente = {
+        "id": str(uuid.uuid4()),
+        "empresa_id": empresa["id"],
+
+        "nome_completo": input("Nome completo: "),
+        "cpf": input("CPF: "),
+        "rg": input("RG: "),
+        "data_nascimento": input("Data de nascimento: "),
+        "genero": input("Gênero: "),
+        "nacionalidade": input("Nacionalidade: "),
+        "estado_civil": input("Estado civil: "),
+        "endereco": input("Endereço (logradouro): "),
+        "numero": input("Número: "),
+        "complemento": input("Complemento: "),
+        "bairro": input("Bairro: "),
+        "cidade": input("Cidade: "),
+        "estado": input("Estado: "),
+        "cep": input("CEP: "),
+        "pais": input("País: "),
+        "email": input("E-mail: "),
+        "telefone_celular": input("Telefone celular: "),
+        "telefone_fixo": input("Telefone fixo: "),
+        "whatsapp": input("WhatsApp: "),
+        "redes_sociais": input("Redes sociais: "),
+        "profissao": input("Profissão: ")
+    }
+
+    banco = load_data_client()
+    if "clientes" not in banco:
+        banco["clientes"] = []
+
+    banco["clientes"].append(cliente)
+    save_data_client(banco)
+
+    print("\n------------------------------------")
+    print("✔ Cliente cadastrado com sucesso!")
+    print("------------------------------------\n")
+         
 
 #Menu principal
 def main():
@@ -154,7 +196,7 @@ def main():
                             case '1':
                                 listar_clientes(logado)
                             case '2':
-                                cadastrar_cliente()
+                                cadastrar_cliente(logado)
                             case '0':
                                 print("Programa encerrado.")
                                 sys.exit()
