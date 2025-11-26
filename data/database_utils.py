@@ -2,8 +2,8 @@ import json
 import os
 
 #endereço do nosso banco de dados
-DB_USER_PATH = 'data/database_user.json'
-DB_CLIENT_PATH = 'data/database_client.json'
+DB_USER_PATH = 'data/database_enterprise.json'
+DB_CLIENT_PATH = 'data/database_customer.json'
 
 
 def init_data_user():
