@@ -3,6 +3,8 @@ import sys
 from models.empresa import Empresa
 from models.usuario import Usuario
 import uuid
+from tabulate import tabulate
+
 
 #função pra verificar se o email ja existe
 def email_existe(email, banco):
@@ -133,8 +135,6 @@ def mostrar_menu():
     print("  [0] Sair")
     return input("Escolha uma opção: ")
 
-from tabulate import tabulate
-
 def listar_clientes(empresa):
     banco_todos_clientes = load_data_client() 
     lista_clientes = banco_todos_clientes.get("clientes", [])
@@ -153,7 +153,7 @@ def listar_clientes(empresa):
                 cliente['email']
             ])
 
-    print(f"\n--- CLIENTES DA EMPRESA: {empresa.get('nome', 'Desconhecida')} ---")
+    print(f"\n--- CLIENTES DA EMPRESA: {empresa.get('nome_fantasia', 'Desconhecida')} ---")
     
     if dados_tabela:
         print(tabulate(dados_tabela, headers=cabecalhos, tablefmt="fancy_grid"))
