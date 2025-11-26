@@ -3,7 +3,9 @@ venv/
 __pycache__/
 
 #banco de dados
-database.json 
+data/*.json
+!data/database_utils.py
+
 
 #lixo do vscode
 .vscode/
