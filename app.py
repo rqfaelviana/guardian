@@ -1,4 +1,4 @@
-from data.database_utils import load_data, save_data 
+from data.database_utils import load_data_user, save_data_user, save_data_client, load_data_client
 import sys 
 from models.empresa import Empresa
 from models.usuario import Usuario
@@ -57,7 +57,7 @@ def cadastrar_usuario():
             print("[Erro] Email inválido. Tente novamente.")
             continue
 
-        banco = load_data()
+        banco = load_data_user()
 
         if email_existe(email, banco):
             print("[Erro] Email já cadastrado. Utilize outro.")
@@ -77,12 +77,12 @@ def cadastrar_usuario():
     # SALVA COMO DICIONÁRIO
     empresaLocal.usuarios.append(usuarioLocal.to_dict())
 
-    banco = load_data()
+    banco = load_data_user()
     if "empresas" not in banco:
         banco["empresas"] = []
 
     banco["empresas"].append(empresaLocal.to_dict())
-    save_data(banco)
+    save_data_user(banco)
     print("\n------------------------------------")
     print(f'Empresa cadastrada!\nID Cadastrado: {empresa_id}')
     print("------------------------------------\n")
@@ -97,20 +97,20 @@ def login_usuario():
     login_email = input("Email: ").strip().lower()
     login_senha = input("Senha: ")
 
-    banco = load_data()
+    banco = load_data_user()
 
     #verifica se tem empressas cadastradas
     if "empresas" not in banco or len(banco["empresas"]) == 0:
         print("\n[Erro] Nenhuma empresa cadastrada no sistema.\n")
         return False
     
-    for empresa in banco["empresas"]:
-        for usuario in empresa["usuarios"]:
+    for empresa_logada in banco["empresas"]:
+        for usuario in empresa_logada["usuarios"]:
             if usuario["email"] == login_email and usuario["senha"] == login_senha:
                 print("\n------------------------------------")
-                print(f'Login realizado com êxito! Bem-vindo(a), empresa: {empresa["nome_fantasia"]}')
+                print(f'Login realizado com êxito! Bem-vindo(a), empresa: {empresa_logada["nome_fantasia"]}')
                 print("\n------------------------------------")
-                return True
+                return empresa_logada
 
     print("\n[Erro] Email ou senha incorretos.\n")  
     return False
@@ -122,6 +122,21 @@ def mostrar_menu():
     print("  [2] Cadastrar Novo Cliente")
     print("  [0] Sair")
     return input("Escolha uma opção: ")
+
+def listar_clientes(empresa):
+    banco_todos_clientes = load_data_client() 
+    lista_clientes = banco_todos_clientes.get("clientes", [])
+
+
+
+    for cliente in lista_clientes:
+        
+        if cliente['empresa_id'] == empresa['id']:
+            print(f"Nome: {cliente['nome_completo']}")
+            print(f"CPF: {cliente['cpf']}")
+            print(f"Email: {cliente['email']}")
+            print("\n")
+            
 
 #Menu principal
 def main():
@@ -137,7 +152,7 @@ def main():
                         escolha = mostrar_menu()
                         match escolha:
                             case '1':
-                                listar_clientes()
+                                listar_clientes(logado)
                             case '2':
                                 cadastrar_cliente()
                             case '0':

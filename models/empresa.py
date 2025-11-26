@@ -13,5 +13,5 @@ class Empresa:
             "nome_fantasia": self.nome_fantasia,
             "razao_social": self.razao_social,
             "cnpj": self.cnpj,
-            "usuarios": [u if isinstance(u, dict) else u.to_dict() for u in self.usuarios]
+            "usuarios": [u if isinstance(u, dict) else u.to_dict() for u in self.usuarios],
         }
