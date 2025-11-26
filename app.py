@@ -12,6 +12,12 @@ def email_existe(email, banco):
                 return True
     return False
 
+def cnpj_existe(cnpj, banco):
+    for empresa in banco.get("empresas", []):
+        if empresa["cnpj"] == cnpj:
+            return True
+        return False
+
 #Menu de Login
 def fluxo_login():
     print("Bem-vindo ao Guardian")
@@ -34,11 +40,15 @@ def cadastrar_usuario():
     while True:          
         cnpj = input("CNPJ da Empresa: ").strip()
 
-        if len(cnpj) == 14 and cnpj.isdigit():
-            break
-        else:
+        if len(cnpj) != 14 or not cnpj.isdigit():
             print("\n[Erro] CNPJ inválido. Digite exatamente 14 números.\n")
-    
+            continue
+        banco = load_data_user()
+        
+        if cnpj_existe(cnpj, banco):
+            print("\n[Erro] Já existe uma empresa cadastrada com este CNPJ.\n")
+            continue
+        break
 
     empresa_id = str(uuid.uuid4())
 
@@ -53,7 +63,7 @@ def cadastrar_usuario():
     while True:
         email = input("Email da empresa: ").strip().lower()
 
-        if "@" not in email and "." not in email:
+        if "@" not in email or "." not in email:
             print("[Erro] Email inválido. Tente novamente.")
             continue
 
