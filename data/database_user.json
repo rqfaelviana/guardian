@@ -1,0 +1,43 @@
+{
+    "empresas": [
+        {
+            "id": "0a77acd4-6bee-4b2e-b6a0-aca4efd29183",
+            "nome_fantasia": "Williams",
+            "razao_social": "Pontes",
+            "cnpj": "12345678912345",
+            "usuarios": [
+                {
+                    "id": "ece503f5-d24d-48df-9748-821baf1af5e1",
+                    "email": "willpontes2005@gmail.com",
+                    "senha": "2505"
+                }
+            ]
+        },
+        {
+            "id": "334ce9e1-fdc8-4793-b7c0-4daaef1085b4",
+            "nome_fantasia": "Cesar",
+            "razao_social": "School",
+            "cnpj": "12345678998765",
+            "usuarios": [
+                {
+                    "id": "9853400d-4f32-4b9e-bdf4-dc5fa022ea72",
+                    "email": "cesarschool@gmail.com",
+                    "senha": "cesar123"
+                }
+            ]
+        },
+        {
+            "id": "1db1c647-31ae-4b0f-bd66-a12a8faf5ef4",
+            "nome_fantasia": "Peu",
+            "razao_social": "Guloso",
+            "cnpj": "12345678912345",
+            "usuarios": [
+                {
+                    "id": "760d84df-aeef-4de5-beaa-3f5348d4b6f6",
+                    "email": "peugulosinho123@gmail.com",
+                    "senha": "peu"
+                }
+            ]
+        }
+    ]
+}
