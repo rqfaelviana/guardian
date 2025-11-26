@@ -38,6 +38,32 @@
                     "senha": "peu"
                 }
             ]
+        },
+        {
+            "id": "9e1a9dc5-c144-4272-a8c0-d59b8de71e42",
+            "nome_fantasia": "Sdkas",
+            "razao_social": "Sads",
+            "cnpj": "12345678910123",
+            "usuarios": [
+                {
+                    "id": "d14f33d2-1920-4ea5-9ff5-a5fd8ea374ae",
+                    "email": "asdasd@gmail.com",
+                    "senha": "sad123"
+                }
+            ]
+        },
+        {
+            "id": "08ae2cb4-acd8-4ca6-a243-567c8801d002",
+            "nome_fantasia": "Rubens",
+            "razao_social": "Sousa",
+            "cnpj": "12345678901234",
+            "usuarios": [
+                {
+                    "id": "25bf3ba7-c1a6-41d1-816c-84ae6c37fb14",
+                    "email": "rubens123@gmail.com",
+                    "senha": "123"
+                }
+            ]
         }
     ]
 }
