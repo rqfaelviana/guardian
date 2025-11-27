@@ -19,8 +19,12 @@ def fluxo_login():
     print("[1] Cadastro de Empresa")
     print("[2] Login Da Empresa")
     print("[0] Sair")
-
-    return int(input("Escolha uma opção: "))
+    
+    op = input("Escolha uma opção: ")
+    if op.isdigit():
+        return int(op)
+    return -1
+    #return int(input("Escolha uma opção: "))
 
 
 def cadastrar_usuario():
@@ -141,14 +145,51 @@ def listar_clientes(empresa):
 def cadastrar_cliente(empresa):
     print("\n===== CADASTRAR NOVO CLIENTE =====")
 
+    # --- 1. VALIDAÇÃO DO NOME (Apenas letras) ---
+    nome_validado = ""
+    while True:
+        entrada_nome = input("Nome completo: ").strip()
+        # O replace tira os espaços só para testar se o resto é letra
+        # Ex: "Joao Silva" vira "JoaoSilva" -> isalpha() diz True
+        if len(entrada_nome) > 0 and entrada_nome.replace(" ", "").isalpha():
+            nome_validado = entrada_nome
+            break
+        else:
+            print("❌ Erro: O nome deve conter apenas letras (sem números).")
+
+    # --- 2. VALIDAÇÃO DO CPF (11 números) ---
+    cpf_validado = "" 
+    while True:
+        entrada_cpf = input("CPF (apenas números): ").strip()
+
+        if len(entrada_cpf) == 11 and entrada_cpf.isdigit():
+            cpf_validado = entrada_cpf
+            break 
+        else:
+            print("❌ Erro: O CPF precisa ter exatamente 11 números.")
+
+    # --- 3. VALIDAÇÃO DA DATA (6 números - DDMMAA) ---
+    data_validada = ""
+    while True:
+        entrada_data = input("Data de nascimento (DDMMAA - 6 dígitos): ").strip()
+
+        if len(entrada_data) == 6 and entrada_data.isdigit():
+            data_validada = entrada_data
+            break
+        else:
+            print("❌ Erro: A data deve ter apenas 6 números (Ex: 251290).")
+
+    # --- CRIAÇÃO DO DICIONÁRIO ---
     cliente = {
         "id": str(uuid.uuid4()),
         "empresa_id": empresa["id"],
 
-        "nome_completo": input("Nome completo: "),
-        "cpf": input("CPF: "),
+        "nome_completo": nome_validado,   # <--- Nome validado
+        "cpf": cpf_validado,              # <--- CPF validado
+        "data_nascimento": data_validada, # <--- Data validada
+        
+        # Os outros campos continuam com input normal
         "rg": input("RG: "),
-        "data_nascimento": input("Data de nascimento: "),
         "genero": input("Gênero: "),
         "nacionalidade": input("Nacionalidade: "),
         "estado_civil": input("Estado civil: "),
@@ -178,7 +219,6 @@ def cadastrar_cliente(empresa):
     print("\n------------------------------------")
     print("✔ Cliente cadastrado com sucesso!")
     print("------------------------------------\n")
-         
 
 #Menu principal
 def main():
