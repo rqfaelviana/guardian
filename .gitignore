@@ -9,3 +9,6 @@ data/*.json
 
 #lixo do vscode
 .vscode/
+
+# Segurança
+secret.key
