@@ -57,6 +57,11 @@ def validar_data_nascimento(data):
     except ValueError:
         return False
 
+#função pra formatar o cpf
+def formatar_cpf(cpf):
+    cpf = cpf.strip().replace(".", "").replace("-", "")
+    return f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+
 #Menu de Login
 def fluxo_login():
     print("Bem-vindo ao Guardian")
@@ -253,7 +258,9 @@ def cadastrar_cliente(empresa):
         if not validar_cpf(cpf):
             print("\n[Erro] CPF inválido. Digite um CPF válido.\n")
             continue
-        
+
+        cpf = formatar_cpf(cpf)
+    
         break
     
     #validação do RG
